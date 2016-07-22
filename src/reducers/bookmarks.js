@@ -14,6 +14,18 @@ const bookmarks = (state = initialState, action) => {
 				}
 			]
 
+		case 'VIEW_BOOKMARK':
+			console.log('view', state, action)
+			return {
+				data: [
+					...state.data, {
+						id: action.id,
+						text: action.title,
+						href: action.href
+					}
+				]
+			}
+
 		case 'GET_URL_REQUEST':
 			return {
 				data: state.data,

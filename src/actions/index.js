@@ -2,6 +2,15 @@ import axios from 'axios'
 
 let nextId = 0
 
+export const viewBookmark = (obj) => {
+	return {
+		type: 'VIEW_BOOKMARK',
+		id: obj.id,
+		title: obj.title,
+		href: obj.url
+	}
+}
+
 export const addBookMark = (text) => {
 	return (dispatch) => {
 
@@ -14,7 +23,6 @@ export const addBookMark = (text) => {
 				url: text
 			}
 		}).then(response => {
-			console.log(response, response.data);
 			dispatch({
 				type: 'GET_URL_SUCCESS',
 				id: nextId++,
