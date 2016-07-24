@@ -3,10 +3,10 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 import App from './components/App'
+import { loadingDb } from './actions/bookmark'
 
-let store = configureStore(window.__PRELOADED_STATE__)
-
-console.log(window, window.__PRELOADED_STATE__)
+let store = configureStore()
+store.dispatch(loadingDb())
 
 render(
 	<Provider store={store}>

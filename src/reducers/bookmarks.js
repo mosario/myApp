@@ -1,6 +1,9 @@
 const initialState = {
 	data: [],
-	fetching: false
+	fetching: {
+		select: false,
+		insert: false
+	}
 }
 
 const bookmarks = (state = initialState, action) => {
@@ -14,8 +17,17 @@ const bookmarks = (state = initialState, action) => {
 				}
 			]
 
+		case 'LOADING_DB':
+			return {
+				data: [
+					...state.data
+				],
+				fetching: {
+					select: true
+				}
+			}
+
 		case 'VIEW_BOOKMARK':
-			console.log('view', state, action)
 			return {
 				data: [
 					...state.data, {
@@ -23,13 +35,18 @@ const bookmarks = (state = initialState, action) => {
 						text: action.title,
 						href: action.href
 					}
-				]
+				],
+				fetching: {
+					select: false
+				}
 			}
 
 		case 'GET_URL_REQUEST':
 			return {
 				data: state.data,
-				fetching: true
+				fetching: {
+					insert: true
+				}
 			}
 
 		case 'GET_URL_SUCCESS':
@@ -41,7 +58,9 @@ const bookmarks = (state = initialState, action) => {
 						href: action.href
 					}
 				],
-				fetching: false
+				fetching: {
+					insert: false
+				}
 			}
 
 		default: 

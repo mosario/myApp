@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addBookMark } from '../actions'
+import { addBookMark } from '../actions/bookmark'
 
 
 class AddBookmarks extends Component {
@@ -19,7 +19,7 @@ class AddBookmarks extends Component {
         }}>
         <input ref={node => {input = node}} />
         <button type='submit'>
-          Add Todo
+          Add Bookmark
         </button>
       </form>
     </div>
