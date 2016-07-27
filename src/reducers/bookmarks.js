@@ -8,14 +8,14 @@ const initialState = {
 
 const bookmarks = (state = initialState, action) => {
 	switch (action.type) {
-		case 'ADD_BOOKMARK':
-			return [
-				...state, {
-					id: action.id,
-					text: action.text,
-					href: action.href
+		case 'RELOAD_STATE':
+			return {
+				data: action.newState,
+				fetching: {
+					select: false,
+					insert: false
 				}
-			]
+			}
 
 		case 'LOADING_DB':
 			return {

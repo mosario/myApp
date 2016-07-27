@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import BookmarkList from '../components/BookmarkList'
+import { deleteRow } from '../actions/bookmark'
 
 const mapStateToProps = (state) => {
   return {
@@ -7,8 +8,17 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+	return {
+		deleteClick: (id, state) => {
+			dispatch(deleteRow(id, state))
+		}
+	}
+}
+
 const List = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(BookmarkList)
 
 export default List

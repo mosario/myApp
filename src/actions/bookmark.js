@@ -1,6 +1,30 @@
 import axios from 'axios'
 
-let nextId = 0
+export const deleteRow = (id, state) => {
+	return (dispatch) => {
+
+		axios.get('/api/bookmark/delete', {
+			params: {
+				id: id
+			}
+		}).then(() => {
+
+			let newState = [];
+
+			Object.keys(state)
+				.filter(i => (state[i].id != id))
+				.map(e => (newState.push(state[e])))
+
+			dispatch({
+				type: 'RELOAD_STATE',
+				newState: newState
+			});
+
+		}).catch(error => {
+			console.log('error', error);
+		});
+	}
+}
 
 export const loadingDb = () => {
 	return (dispatch) => {
@@ -49,8 +73,8 @@ export const addBookMark = (text) => {
 		}).then(response => {
 			dispatch({
 				type: 'GET_URL_SUCCESS',
-				id: nextId++,
-				text: response.data,
+				id: response.data.id,
+				text: response.data.title,
 				href: text
 			})
 		}).catch(error => {
