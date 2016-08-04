@@ -3,10 +3,12 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 import App from './components/App'
-import { loadingDb } from './actions/bookmark'
+import { loadingBookmarks } from './actions/bookmark'
+import { loadingNotes } from './actions/notes'
 
 let store = configureStore()
-store.dispatch(loadingDb())
+store.dispatch(loadingNotes())
+store.dispatch(loadingBookmarks())
 
 render(
 	<Provider store={store}>

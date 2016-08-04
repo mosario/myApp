@@ -26,7 +26,7 @@ export const deleteRow = (id, state) => {
 	}
 }
 
-export const loadingDb = () => {
+export const loadingBookmarks = () => {
 	return (dispatch) => {
 
 		dispatch({
