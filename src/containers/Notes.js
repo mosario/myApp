@@ -21,23 +21,21 @@ class Notes extends Component {
 		setTimeout(tick.bind(this), 1000)
 	}
 
-	componentWillReceiveProps(nextProps){
+	componentDidMount(){
 		this.setState({
-			progress: nextProps.state.fetching,
-			text: nextProps.state.text
+			progress: this.props.state.fetching,
+			text: this.props.state.text
 		})
 	}
 
 	handleChange(e){
 		const { dispatch } = this.props
-
 		this.setState({text: e.target.value})
 		dispatch(addNotes(e.target.value))
 	}
 
 	render(){
 		const { progress, text } = this.state
-
 		return(
 			<div>
 				<p>

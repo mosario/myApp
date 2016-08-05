@@ -10,15 +10,12 @@ export const loadingNotes = () => {
 		axios.get('/api/notes/select').then(response => {
 			console.log('response', response)
 			let result = response.data
-			console.log('result', result)
-			Object.keys(result).map(i => {
-				setTimeout(() => {
-					dispatch({
-						type: 'VIEW_TEXT',
-						id: result[i].id,
-						text: result[i].text
-					});
-				}, 5000)
+			Object.keys(result).map(i => {				
+				dispatch({
+					type: 'VIEW_TEXT',
+					id: result[i].id,
+					text: result[i].text
+				});				
 			});		
 		}).catch(error => {
 			console.log('error', error)

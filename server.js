@@ -3,6 +3,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import config from './webpack.config'
 import express from 'express'
+
 import bookmark from './api/bookmark'
 import notes from './api/notes'
 
@@ -16,9 +17,9 @@ app.use(webpackHotMiddleware(compiler))
 app.use('/api/bookmark', bookmark);
 app.use('/api/notes', notes);
 
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html')
-})
+app.get(/.*/, function root(req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
 
 app.listen(port, function(error) {
   if (error) {
