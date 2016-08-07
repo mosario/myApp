@@ -23,6 +23,10 @@ export default class SvgIcons extends Component {
 				return (
 					<g><path d='M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z'></path></g>
 				);
+			case 'add':
+				return (
+					<g><path d='M19 13h-6v6h-2v-6h-6v-2h6v-6h2v6h6v2z'></path></g>
+				);
 		}
 	}
 
