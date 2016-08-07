@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import Tabs from './Tabs'
+import Panel from './Tabs/Panel'
 import { connect } from 'react-redux'
-import { addNotes } from '../actions/notes'
+import { updateNotes } from '../actions/notes'
 
 class Notes extends Component {
 	constructor(){
@@ -24,30 +26,59 @@ class Notes extends Component {
 	componentDidMount(){
 		this.setState({
 			progress: this.props.state.fetching,
-			text: this.props.state.text
+			data: this.props.state.data
 		})
 	}
 
-	handleChange(e){
-		const { dispatch } = this.props
-		this.setState({text: e.target.value})
-		dispatch(addNotes(e.target.value))
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			data: nextProps.state.data
+		});
 	}
 
+	handleChange(index, e){
+		const { dispatch } = this.props
+
+		let data = this.state.data
+		data[index].text = e.target.value
+
+		this.setState({data: data})
+		dispatch(updateNotes(e.target.value, data[index].id))
+	}
+
+	_renderTextarea(){
+		const { progress, data } = this.state
+
+		return Object.keys(data).map((child, index) => {
+				return (
+					<Panel label={data[index].id} key={index}>
+						<textarea rows={10} cols={30}
+							disabled={progress == true ? 'disabled' : ''}
+							value={progress == true ? this.state.loading : data[index].text}
+							onChange={(e) => this.handleChange(index, e)} />
+					</Panel>
+				);
+		});
+	}
 	render(){
-		const { progress, text } = this.state
-		return(
-			<div>
-				<p>
-					<textarea rows={10} cols={30}
-						disabled={progress == true ? 'disabled' : ''}
-						value={progress == true ? this.state.loading : text}
-						onChange={(e) => this.handleChange(e)} />
-				</p>
-			</div>
-		);
+		const { progress } = this.state
+		
+		if(progress == true){
+			return(
+				<div>loading...</div>
+			);
+		} else {
+			return(
+				<div>
+					<Tabs>
+						{this._renderTextarea()}
+					</Tabs>
+				</div>
+			);
+		}
 	}
 }
+
 const mapStateToProps = (state, dispatch) => {
   return {
     state: state.notes,

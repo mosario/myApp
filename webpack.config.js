@@ -36,7 +36,15 @@ module.exports = {
         ],
         test: /\.js$/,
         plugins: ['transform-runtime'],
-      }
+      },
+      { test: /\.css$/, loader: "style-loader!css-loader!postcss-loader" }
     ]
+  },
+  postcss: function () {
+    return [
+      require('autoprefixer'),
+      require('precss'),
+      require('postcss-mixins'),
+      require('postcss-assets')];
   }
 }
